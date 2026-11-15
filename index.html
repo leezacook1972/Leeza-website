@@ -1086,19 +1086,18 @@ Whether you’re planning an intimate ceremony, a relaxed garden reception, or a
 
         <div class="events-grid">
             <!-- Event 1 -->
-            <div class="event-card">
-                <div class="event-image">
-                    <img src="./image/Leeza-event01.jpeg" alt="Upcoming Event">
-                </div>
-                <div class="event-content">
-                    <h3>Event Details</h3>
-                    <p class="event-description">Harvest Supper</p>
-                    <p class="event-date"><i class="fas fa-calendar"></i> Saturday 24th October 2026 </p>
-                    <p class="event-time"><i class="fas fa-clock"></i> 7 pm - 10:30 pm </p>
-                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Hitcham Village Hall</p>
-                    
-                </div>
-            </div>
+<div class="event-card" data-date="2026-10-24">
+    <div class="event-image">
+        <img src="./image/Leeza-event01.jpeg" alt="Harvest Supper">
+    </div>
+    <div class="event-content">
+        <span class="event-status-badge badge-upcoming">Upcoming</span>
+        <h3>Harvest Supper</h3>
+        <p class="event-date"><i class="fas fa-calendar"></i> Saturday 24th October 2026</p>
+        <p class="event-time"><i class="fas fa-clock"></i> 7 pm – 10:30 pm</p>
+        <p class="event-location"><i class="fas fa-map-marker-alt"></i> Hitcham Village Hall</p>
+    </div>
+      </div>
         </div>
     </div>
 </section>
@@ -1440,6 +1439,26 @@ We've had so many guests comment on how brilliant they were. We honestly couldn'
 
         // Init
         initPlayer();
+        
+ // Auto-tag past events based on data-date attribute
+document.querySelectorAll('.event-card[data-date]').forEach(card => {
+    const eventDate = new Date(card.dataset.date + 'T23:59:59');
+    if (eventDate < new Date()) {
+        card.classList.add('past-event');
+        const badge = card.querySelector('.event-status-badge');
+        if (badge) {
+            badge.textContent = 'Past Event';
+            badge.className = 'event-status-badge badge-past';
+        }
+    } else {
+        const badge = card.querySelector('.event-status-badge');
+        if (badge) {
+            badge.textContent = 'Upcoming';
+            badge.className = 'event-status-badge badge-upcoming';
+        }
+    }
+});       
+        
     </script>
 
 <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fleezacookviolinist.com%2F&label=Visitors%3A+Today+%2F+All+Time&icon=suit-heart-fill&color=%236610f2&message=&style=plastic&tz=GB" alt="">
